@@ -17,10 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -130,8 +127,36 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping(value = "/forgotPassword")
-    public String forgotPassword(Model model) {
+    @RequestMapping(value = "/forgotPassword")
+    public String forgotPassword(Model model, HttpServletRequest request, @ModelAttribute("email") String email) {
+
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            model.addAttribute("emailDoesNotExist", true);
+            model.addAttribute("title", "Forgot Password");
+            model.addAttribute("classActiveForgot", true);
+            return "login";
+        }
+
+        String password = SecurityUtility.randomPassword();
+
+        String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+
+        user.setPassword(encryptedPassword);
+
+        userService.save(user);
+
+        String token = UUID.randomUUID().toString();
+        userService.createPasswordResetTokenForUser(user, token);
+
+        String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+
+        SimpleMailMessage simpleMailMessage = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+
+        javaMailSender.send(simpleMailMessage);
+
+        model.addAttribute("emailSent", true);
 
         model.addAttribute("title", "Forgot Password");
         model.addAttribute("classActiveForgot", true);

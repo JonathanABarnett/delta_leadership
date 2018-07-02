@@ -17,24 +17,24 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
-    @NotNull
-    @NotEmpty(message = "Please enter your first name")
+    private int id;
+//    @NotNull
+//    @NotEmpty(message = "Please enter your first name")
     private String firstName;
-    @NotNull
-    @NotEmpty(message = "Please enter your last name")
+//    @NotNull
+//    @NotEmpty(message = "Please enter your last name")
     private String lastName;
-    @NotNull
-    @NotEmpty(message = "Please enter your username")
+//    @NotNull
+//    @NotEmpty(message = "Please enter your username")
     private String username;
-    @NotNull
-    @NotEmpty(message = "Please enter a password")
+//    @NotNull
+//    @NotEmpty(message = "Please enter a password")
     private String password;
-    @NotNull
-    @NotEmpty(message = "Please enter your email")
+//    @NotNull
+//    @NotEmpty(message = "Please enter your email")
     private String email;
-    @NotNull
-    @NotEmpty(message = "Please enter your phone number")
+//    @NotNull
+//    @NotEmpty(message = "Please enter your phone number")
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -60,12 +60,12 @@ public class User implements UserDetails {
         this.address = address;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

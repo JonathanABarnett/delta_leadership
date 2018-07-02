@@ -13,17 +13,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int addressId;
-    @NotNull
-    @Size(min = 3, message = "Please enter your address")
+//    @NotNull
+//    @Size(min = 3, message = "Please enter your address")
     private String street1;
     private String street2 = "";
-    @NotNull
-    @Size(min = 3, message = "Please enter your city")
+//    @NotNull
+//    @Size(min = 3, message = "Please enter your city")
     private String city;
-    @NotNull
+//    @NotNull
     private String state;
-    @NotNull
-    @Size(min = 5, max = 9, message = "Please enter your zip code")
+//    @NotNull
+//    @Size(min = 5, max = 9, message = "Please enter your zip code")
     private String zip;
 
     public Address() {}

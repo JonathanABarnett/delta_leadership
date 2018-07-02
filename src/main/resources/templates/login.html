@@ -7,10 +7,10 @@
 <nav th:replace="fragment::nav"></nav>
 
 <!-- Card Tabs -->
-<div class="row">
+<div class="row space">
     <div class="col"></div>
     <div class="col-xs-12 col-sm-10 col-md-8">
-        <div class="card space" >
+        <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs" id="myAccountTab" role="tablist">
                     <li class="nav-item ">
@@ -34,17 +34,17 @@
                     <!-- Login Tab -->
                     <div class="tab-pane show " id="login" role="tabpanel" aria-labelledby="login-tab" th:classappend="${classActiveLogin} ? 'show active'">
                         <h3>Login</h3>
-                        <div class="text text-danger" th:if="${param.error != null}">Incorrect Username or Password</div>
+                        <div class="alert alert-danger" th:if="${param.error != null}">Incorrect Username or Password</div>
                         <form th:action="@{/login}" method="post">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="loginUsername"
-                                       placeholder="Enter username" required="required" name="username"/>
+                                       placeholder="Enter your username" required="required" name="username"/>
 
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password"
                                        required="required" name="password"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Login</button>
@@ -62,19 +62,20 @@
                             <div class="form-group">
                                 <label for="registerEmail">Email address</label>
                                 <input type="email" class="form-control" id="registerEmail"
-                                       aria-describedby="emailHelp" placeholder="Enter email" required="required"
+                                       aria-describedby="emailHelp" placeholder="Please enter your email. All future emails will be sent to this address." required="required"
                                        name="email"/>
-                                <small id="emailHelp" class="form-text text-muted">Please enter a unique email. All
+                                <!-- <small id="emailHelp" class="form-text text-muted">Please enter a unique email. All
                                     emails will be sent to this address.
-                                </small>
+                                </small> -->
                             </div>
                             <div class="form-group">
                                 <label for="loginUsername">Username</label>
                                 <input type="text" class="form-control" id="username"
-                                       aria-describedby="usernameHelp" placeholder="Enter username"
+                                       aria-describedby="usernameHelp" placeholder="Please enter a username."
                                        required="required" name="username"/>
-                                <small id="emailHelp" class="form-text text-muted">Please enter a unique username.
-                                </small>
+                                <!-- <small id="emailHelp" class="form-text text-muted">
+                                    Please enter a unique username.
+                                </small> -->
                             </div>
                             <button type="submit" class="btn btn-primary">Register</button>
                         </form>
@@ -84,16 +85,16 @@
                     <div class="tab-pane " id="forgot" role="tabpanel" aria-labelledby="forgot-tab" th:classappend="${classActiveForgot} ? ' show active'">
                         <h3>Forgot Password</h3>
                         <div class="alert alert-success" th:if="${emailSent}">An email has been sent to the address you registered. Please follow the link to reset your password.</div>
-                        <div class="alert alert-danger" th:if="${emailNotExist}">There is no record of this email. Please sign up for an account.</div>
-                        <form th:action="@{/forgot}" method="post">
+                        <div class="alert alert-danger" th:if="${emailDoesNotExist}">There is no record of this email. Please create an account.</div>
+                        <form th:action="@{/forgotPassword}" method="post">
                             <div class="form-group">
                                 <label for="forgotEmail">Email address</label>
                                 <input type="email" class="form-control" id="forgotEmail"
-                                       aria-describedby="emailHelp" placeholder="Enter email" required="required"
+                                       aria-describedby="emailHelp" placeholder="Please enter the email you registered with." required="required"
                                        name="email"/>
-                                <small id="emailHelp" class="form-text text-muted">Please enter the email you
+                                <!-- <small id="emailHelp" class="form-text text-muted">Please enter the email you
                                     registered with.
-                                </small>
+                                </small> -->
                             </div>
 
                             <button type="submit" class="btn btn-primary">Forgot</button>
@@ -101,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="col"></div>

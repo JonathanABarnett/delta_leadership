@@ -12,7 +12,7 @@ public class Leadership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int leadershipId;
-    @NotEmpty(message = "Please enter name of role.")
+//    @NotEmpty(message = "Please enter name of role.")
     private String name;
 
 }

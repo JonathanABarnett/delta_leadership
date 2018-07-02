@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(int id) {
+        return userRepository.getOne(id);
+    }
+
+    @Override
     public User createUser(User user, Set<UserRole> userRoles) {
         User localUser = userRepository.findByUsername(user.getUsername());
         if (localUser != null) {
@@ -58,5 +63,10 @@ public class UserServiceImpl implements UserService {
             localUser = userRepository.save(user);
         }
         return localUser;
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

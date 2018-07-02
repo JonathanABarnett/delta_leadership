@@ -29,14 +29,14 @@ public class DeltaLeadershipApplication implements CommandLineRunner {
         User user1 = new User();
         user1.setFirstName("Jonathan");
         user1.setLastName("Barnett");
-        user1.setEmail("jonathan.a.barnett@gmail.com");
+        user1.setEmail("jb@gmail.com");
         user1.setUsername("jb");
         user1.setPhoneNumber("123-456-7899");
         user1.setPassword(SecurityUtility.passwordEncoder().encode("123"));
         Set<UserRole> userRoles = new HashSet<>();
         Role role1 = new Role();
         role1.setRoleId(1);
-        role1.setName("USER_ROLE");
+        role1.setName("ROLE_USER");
         userRoles.add(new UserRole(user1, role1));
         Address address1 = new Address();
         address1.setStreet1("123 S. St.");

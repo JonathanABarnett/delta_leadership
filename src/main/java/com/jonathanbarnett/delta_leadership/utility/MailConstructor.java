@@ -20,8 +20,8 @@ public class MailConstructor {
 
 
     public SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, User user, String password) {
-        String url = contextPath + "/register?token=" + token;
-        String message = "Hello " + user.getUsername() + ",\n Please click on this link: " + url + " to " +
+        String url = contextPath + "/editProfile?token=" + token;
+        String message = "Hello " + user.getUsername() + ",\nPlease click on this link: " + url + " to " +
                 " verify your email and edit your personal information.\n\n" + "Your temporary password is: " + password +
                 "\n\nThis will be valid for 24 hours after receiving this email. \n\n\nThank you,\n\n Delta Church";
         SimpleMailMessage email = new SimpleMailMessage();

@@ -7,9 +7,9 @@
 <nav th:replace="fragment::nav"></nav>
 
 <!-- Card Tabs -->
-<div class="row">
+<div class="row space">
     <div class="col"></div>
-    <div class="col-xs-12 col-sm-10 col-md-6">
+    <div class="col-xs-12 col-sm-10 col-md-8">
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs" id="myAccountTab" role="tablist">
@@ -36,7 +36,7 @@
                          th:classappend="${classActiveEdit} ? 'show active'">
                         <h3 class="text-center">Edit Profile</h3>
                         <hr/>
-                        <form th:action="@{/updateUserInfo}" method="post">
+                        <form th:action="@{/updateProfile}" method="post">
                             <input type="hidden" name="id" th:value="${user.id}"/>
                             <div class="alert alert-success" th:if="${updateUserInfoSuccess}">User info updated.
                             </div>
@@ -85,22 +85,24 @@
                                        required="required"/>
                             </div>
                             <div class="form-group">
-                                <label for="confirmPassword">Confirm Password</label>
+                                <label for="confirmPassword">Confirm Password   </label><span id="checkPasswordMatch"></span>
                                 <input type="password" class="form-control" id="confirmPassword"
                                        required="required"/>
                             </div>
+                            <hr/>
+                            <h3 class="text-center">Address</h3>
                             <hr/>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
                                         <label for="street1">Street 1</label>
                                         <input type="text" class="form-control" id="street1" name="street1"
-                                               th:value="${user.address.street1}" required="required"/>
+                                               th:field="${user.address.street1}" required="required"/>
                                     </div>
                                     <div class="col">
                                         <label for="street2">Street 2</label>
                                         <input type="text" class="form-control" id="street2" name="street2"
-                                               th:value="${user.address.street2}" />
+                                               th:field="${user.address.street2}" />
                                     </div>
                                 </div>
                             </div>
@@ -109,11 +111,11 @@
                                     <div class="col-xs-12 col">
                                         <label for="city">City</label>
                                         <input type="text" class="form-control" id="city" name="city"
-                                               th:value="${user.address.city}" required="required"/>
+                                               th:field="${user.address.city}" required="required"/>
                                     </div>
                                     <div class="col-xs-12 col">
                                         <label for="state">State</label>
-                                        <select id="stateAbb" class="form-control"
+                                        <select class="form-control"
                                                 th:name="state" id="state"
                                                 th:field="${user.address.state}"
 
@@ -126,12 +128,12 @@
                                     <div class="col-xs-12 col">
                                         <label for="zip">Zip Code</label>
                                         <input type="zip" class="form-control" id="zip" name="zip"
-                                               th:value="${user.address.zip}" required="required" />
+                                               th:field="${user.address.zip}" required="required" />
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="updateUserInfoButton">Update</button>
-                            <span id="checkPasswordMatch"></span>
+
                         </form>
                     </div>
 
