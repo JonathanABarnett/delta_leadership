@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragment::head"></head>
+
+<body>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs" id="myAccountTab" role="tablist">
+                    <li class="nav-item ">
+                        <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab"
+                           aria-controls="edit" aria-selected="true" th:classappend="${classActiveEdit} ? ' active'">Account Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="register-tab" data-toggle="tab" href="#register" role="tab"
+                           aria-controls="register" aria-selected="false" th:classappend="${classActiveCreate} ? ' active'">Create Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="forgot-tab" data-toggle="tab" href="#forgot" role="tab"
+                           aria-controls="forgot" aria-selected="false" th:classappend="${classActiveForgot} ? ' active'">Forgot Password</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-body">
+                <div class="tab-content">
+
+                    <!-- Edit User Info Tab -->
+                    <div class="tab-pane show " id="edit" role="tabpanel" aria-labelledby="edit-tab"
+                         th:classappend="${classActiveEdit} ? 'show active'">
+                        <h3 class="text-center">Edit Profile</h3>
+                        <hr/>
+                        <form th:action="@{/updateUserInfo}" method="post">
+                            <input type="hidden" name="id" th:value="${user.id}"/>
+                            <div class="alert alert-success" th:if="${updateUserInfoSuccess}">User info updated.
+                            </div>
+                            <div class="alert alert-danger" th:if="${incorrectPassword}">Current password was entered incorrectly.
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName"
+                                               th:value="${user.firstName}" required="required"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName"
+                                               th:value="${user.lastName}" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       th:value="${user.username}" required="required" readonly="readonly"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phoneNumber" required="required"
+                                       th:value="${user.phoneNumber}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       th:value="${user.email}" required="required" readonly="readonly"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="text" class="form-control" id="currentPassword" name="password"
+                                       th:value="${currentPassword}" required="required"/>
+                                <small id="passwordHelp" class="form-text text-muted">Please enter your current
+                                    password in order to change it.
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword"
+                                       required="required"/>
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="street1">Street 1</label>
+                                        <input type="text" class="form-control" id="street1" name="street1"
+                                               th:value="${user.address.street1}" required="required"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="street2">Street 2</label>
+                                        <input type="text" class="form-control" id="street2" name="street2"
+                                               th:value="${user.address.street2}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12 col">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control" id="city" name="city"
+                                               th:value="${user.address.city}" required="required"/>
+                                    </div>
+                                    <div class="col-xs-12 col">
+                                        <label for="state">State</label>
+                                        <select id="stateAbb" class="form-control"
+                                                th:name="state" id="state"
+                                                th:field="${user.address.state}"
+
+                                                required="required">
+                                            <option th:each="state : ${stateList}" th:text="${state}"
+                                                    th:value="${state}"
+                                                    th:selected="(${user.address.state}==${state})"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col">
+                                        <label for="zip">Zip Code</label>
+                                        <input type="zip" class="form-control" id="zip" name="zip"
+                                               th:value="${user.address.zip}" required="required" />
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="updateUserInfoButton">Update</button>
+                            <span id="checkPasswordMatch"></span>
+                        </form>
+                    </div>
+
+                    <!-- Register Tab -->
+                    <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab" th:classappend="${classActiveRegister} ? ' show active'">
+                        <h3>Register</h3>
+
+                    </div>
+
+                    <!-- Forgot Tab -->
+                    <div class="tab-pane " id="forgot" role="tabpanel" aria-labelledby="forgot-tab" th:classappend="${classActiveForgot} ? ' show active'">
+                        <h3>Forgot Password</h3>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
+</body>
+</html>

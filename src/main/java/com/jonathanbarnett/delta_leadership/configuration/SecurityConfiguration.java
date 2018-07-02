@@ -1,7 +1,10 @@
 package com.jonathanbarnett.delta_leadership.configuration;
 
+import com.jonathanbarnett.delta_leadership.service.UserSecurityService;
+import com.jonathanbarnett.delta_leadership.utility.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,12 +16,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private UserSecurityService userSecurityService;
-//
-//    private BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return SecurityUtility.passwordEncoder();
-//    }
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private UserSecurityService userSecurityService;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return SecurityUtility.passwordEncoder();
+    }
 
     private static final String[] PUBLIC_MATCHERS = {
             "/css/**",
@@ -26,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/img/**",
             "/",
             "/index",
+            "/login",
+            "/createAccount",
+            "/forgotPassword"
     };
 
     @Override
@@ -48,9 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/403");
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userSecurityService).passwordEncoder(bCryptPasswordEncoder());
-//
-//    }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userSecurityService).passwordEncoder(bCryptPasswordEncoder());
+
+    }
 }

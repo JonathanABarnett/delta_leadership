@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragment::head"></head>
+
+<body>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8">
+        <div class="card space" >
+            <div class="card-header">
+                <ul class="nav nav-tabs" id="myAccountTab" role="tablist">
+                    <li class="nav-item ">
+                        <a class="nav-link" id="login-tab" data-toggle="tab" href="#login" role="tab"
+                           aria-controls="login" aria-selected="true" th:classappend="${classActiveLogin} ? ' active'">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="register-tab" data-toggle="tab" href="#register" role="tab"
+                           aria-controls="register" aria-selected="false" th:classappend="${classActiveCreate} ? ' active'">Create Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="forgot-tab" data-toggle="tab" href="#forgot" role="tab"
+                           aria-controls="forgot" aria-selected="false" th:classappend="${classActiveForgot} ? ' active'">Forgot Password</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-body">
+                <div class="tab-content">
+
+                    <!-- Login Tab -->
+                    <div class="tab-pane show " id="login" role="tabpanel" aria-labelledby="login-tab" th:classappend="${classActiveLogin} ? 'show active'">
+                        <h3>Login</h3>
+                        <div class="text text-danger" th:if="${param.error != null}">Incorrect Username or Password</div>
+                        <form th:action="@{/login}" method="post">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="loginUsername"
+                                       placeholder="Enter username" required="required" name="username"/>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                       required="required" name="password"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+
+                    <!-- Create Tab -->
+                    <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab" th:classappend="${classActiveCreate} ? ' show active'">
+                        <h3>Register</h3>
+                        <div class="alert alert-danger" th:if="${emailExists}">An account with this email already exists.</div>
+                        <div class="alert alert-danger" th:if="${usernameExists}">An account with this username already exists.</div>
+                        <div class="alert alert-success" th:if="${emailSent}">An email has been sent to the address you registered.</div>
+                        <hr/>
+                        <form th:action="@{/createAccount}" method="post">
+                            <div class="form-group">
+                                <label for="registerEmail">Email address</label>
+                                <input type="email" class="form-control" id="registerEmail"
+                                       aria-describedby="emailHelp" placeholder="Enter email" required="required"
+                                       name="email"/>
+                                <small id="emailHelp" class="form-text text-muted">Please enter a unique email. All
+                                    emails will be sent to this address.
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginUsername">Username</label>
+                                <input type="text" class="form-control" id="username"
+                                       aria-describedby="usernameHelp" placeholder="Enter username"
+                                       required="required" name="username"/>
+                                <small id="emailHelp" class="form-text text-muted">Please enter a unique username.
+                                </small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+
+                    <!-- Forgot Tab -->
+                    <div class="tab-pane " id="forgot" role="tabpanel" aria-labelledby="forgot-tab" th:classappend="${classActiveForgot} ? ' show active'">
+                        <h3>Forgot Password</h3>
+                        <div class="alert alert-success" th:if="${emailSent}">An email has been sent to the address you registered. Please follow the link to reset your password.</div>
+                        <div class="alert alert-danger" th:if="${emailNotExist}">There is no record of this email. Please sign up for an account.</div>
+                        <form th:action="@{/forgot}" method="post">
+                            <div class="form-group">
+                                <label for="forgotEmail">Email address</label>
+                                <input type="email" class="form-control" id="forgotEmail"
+                                       aria-describedby="emailHelp" placeholder="Enter email" required="required"
+                                       name="email"/>
+                                <small id="emailHelp" class="form-text text-muted">Please enter the email you
+                                    registered with.
+                                </small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Forgot</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <title th:text="${title}">Title of Page</title>
@@ -25,7 +25,8 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/index"><i class="far fa-building"></i> Employees</a>
+    <a class="navbar-brand" href="/index"><img class="img-fluid"
+                                               src="../../resources/static/img/navbar-logo-sm.png" th:src="@{/img/navbar-logo-sm.png}" /> Delta Church</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,37 +38,68 @@
                 <a class="nav-link" href="/index">Home</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Employee Menu
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Account
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/addEmployee">Add Employee</a>
-                    <a class="dropdown-item" href="/remove">Remove Employee</a>
-                    <a class="dropdown-item" href="/listEmployee">Employee List</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" sec:authorize="isAnonymous()" th:href="@{/login}">Login/Sign Up</a>
+                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/profile}">My
+                        Account</a>
+                    <div sec:authorize="isAuthenticated()" class="dropdown-divider"></div>
+                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/directory}">Member Directory</a>
+                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="deptDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Department Actions
-                </a>
-                <div class="dropdown-menu" aria-labelledby="deptDropDownMenu">
-                    <a class="dropdown-item" href="/addDepartment">Add Department</a>
-                    <a class="dropdown-item" href="/listDepartment">Department List</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link"sec:authorize="isAuthenticated()" th:href="@{/directory}">Member Directory</a>
             </li>
-
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0" sec:authorize="isAuthenticated()">
             <input class="form-control mr-sm-2" type="hidden"/>
-            <a href="https://github.com/JonathanABarnett/Employees_MVC" target="_blank"
-               class="btn btn-secondary my-2 my-sm-0" type="button"><i class="fab fa-github"></i> Github</a>
+            <a th:href="@{/logout}"
+               class="btn btn-secondary my-2 my-sm-0" type="button"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </form>
     </div>
 </nav>
 
 
-<footer class="footer text text-center" th:fragment="footer">
-    <p>&copy; 2018 Jonathan Barnett </p>
+<footer th:fragment="footer">
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light" />
+                <img src="../../resources/static/img/navbar-logo-sm.png" th:src="@{/img/navbar-logo-sm.png}" />
+                <hr class="light" />
+                <a href="#">
+                    <p>Phone Number</p>
+                </a>
+                <p>Email Address</p>
+                <p>Street 1</p>
+                <p>City, State Zip</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light" />
+                <h5>Our Hours</h5>
+                <hr class="light" />
+                <p>Monday</p>
+                <p>Monday</p>
+                <p>Monday</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light" />
+                <h5>More Info</h5>
+                <hr class="light" />
+                <p>Monday</p>
+                <p>Monday</p>
+                <p>Monday</p>
+            </div>
+            <div class="col-12">
+                <hr class="light-100" />
+                <h5>&copy; AlaythiaProductions</h5>
+            </div>
+        </div>
+    </div>
 </footer>
 </body>
 </html>

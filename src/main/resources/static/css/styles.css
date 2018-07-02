@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    color: #222;
+}
+
+
+.bg {
+    /* The image used */
+    background-image: url("../img/Full-Slide_basic.jpg");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+space {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+footer {
+    background-color: #343434;
+    color: #D9D9D9;
+    padding-top: 2rem;
+}
+
+footer p {
+    margin-bottom: .5rem;
+}
+
+footer a {
+    color: #D9D9D9;
+}
