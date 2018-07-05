@@ -1,8 +1,10 @@
 package com.jonathanbarnett.delta_leadership.controllers;
 
 import com.jonathanbarnett.delta_leadership.models.Address;
+import com.jonathanbarnett.delta_leadership.models.Leadership;
 import com.jonathanbarnett.delta_leadership.models.User;
 import com.jonathanbarnett.delta_leadership.security.PasswordResetToken;
+import com.jonathanbarnett.delta_leadership.service.LeadershipService;
 import com.jonathanbarnett.delta_leadership.service.UserSecurityService;
 import com.jonathanbarnett.delta_leadership.service.UserService;
 import com.jonathanbarnett.delta_leadership.utility.SecurityUtility;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +34,9 @@ public class ProfileController {
     @Autowired
     private UserSecurityService userSecurityService;
 
+    @Autowired
+    private LeadershipService leadershipService;
+
 
     @RequestMapping(value = "/profile")
     public String myProfile(Model model, Principal principal) {
@@ -39,6 +45,9 @@ public class ProfileController {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
         model.addAttribute("classActiveEdit", true);
+
+        List<Leadership> leadershipRoles = leadershipService.findAll();
+        model.addAttribute("leadershipRoles", leadershipRoles);
 
         List<String> stateList = USStates.listOfUSStateCode;
         Collections.sort(stateList);
@@ -55,7 +64,7 @@ public class ProfileController {
         if (passwordResetToken == null) {
             String message = "Invalid Token.";
             model.addAttribute("message", message);
-            return "redirect:/access-denied";
+            return "redirect:/index";
         }
 
         User user = passwordResetToken.getUser();
@@ -73,6 +82,9 @@ public class ProfileController {
         if (user.getAddress() == null) {
             user.setAddress(new Address());
         }
+
+        List<Leadership> leadershipRoles = leadershipService.findAll();
+        model.addAttribute("leadershipRoles", leadershipRoles);
 
         List<String> stateList = USStates.listOfUSStateCode;
         Collections.sort(stateList);
@@ -97,6 +109,9 @@ public class ProfileController {
             if (userService.findByEmail(user.getEmail()).getId() != currentUser.getId()) {
                 model.addAttribute("emailExists", true);
                 model.addAttribute("classActiveEdit", true);
+                List<Leadership> leadershipRoles = new ArrayList<>();
+                leadershipRoles = leadershipService.findAll();
+                model.addAttribute("leadershipRoles", leadershipRoles);
                 List<String> stateList = USStates.listOfUSStateCode;
                 Collections.sort(stateList);
                 model.addAttribute("stateList", stateList);
@@ -108,6 +123,9 @@ public class ProfileController {
             if (userService.findByUsername(user.getUsername()).getId() != currentUser.getId()) {
                 model.addAttribute("usernameExists", true);
                 model.addAttribute("classActiveEdit", true);
+                List<Leadership> leadershipRoles = new ArrayList<>();
+                leadershipRoles = leadershipService.findAll();
+                model.addAttribute("leadershipRoles", leadershipRoles);
                 List<String> stateList = USStates.listOfUSStateCode;
                 Collections.sort(stateList);
                 model.addAttribute("stateList", stateList);
@@ -123,6 +141,9 @@ public class ProfileController {
             } else {
                 model.addAttribute("incorrectPassword", true);
                 model.addAttribute("classActiveEdit", true);
+                List<Leadership> leadershipRoles = new ArrayList<>();
+                leadershipRoles = leadershipService.findAll();
+                model.addAttribute("leadershipRoles", leadershipRoles);
                 List<String> stateList = USStates.listOfUSStateCode;
                 Collections.sort(stateList);
                 model.addAttribute("stateList", stateList);
@@ -141,6 +162,7 @@ public class ProfileController {
         address.setCity(user.getAddress().getCity());
         address.setState(user.getAddress().getState());
         address.setZip(user.getAddress().getZip());
+        currentUser.setLeadership(user.getLeadership());
         currentUser.setAddress(address);
 
         userService.save(currentUser);

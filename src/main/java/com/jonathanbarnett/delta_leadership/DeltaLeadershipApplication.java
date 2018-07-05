@@ -1,6 +1,7 @@
 package com.jonathanbarnett.delta_leadership;
 
 import com.jonathanbarnett.delta_leadership.models.Address;
+import com.jonathanbarnett.delta_leadership.models.Leadership;
 import com.jonathanbarnett.delta_leadership.models.User;
 import com.jonathanbarnett.delta_leadership.security.Role;
 import com.jonathanbarnett.delta_leadership.security.UserRole;
@@ -27,16 +28,16 @@ public class DeltaLeadershipApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         User user1 = new User();
-        user1.setFirstName("Jonathan");
-        user1.setLastName("Barnett");
+        user1.setFirstName("Admin");
+        user1.setLastName("Admin");
         user1.setEmail("jb@gmail.com");
-        user1.setUsername("jb");
+        user1.setUsername("Admin");
         user1.setPhoneNumber("123-456-7899");
         user1.setPassword(SecurityUtility.passwordEncoder().encode("123"));
         Set<UserRole> userRoles = new HashSet<>();
         Role role1 = new Role();
         role1.setRoleId(1);
-        role1.setName("ROLE_USER");
+        role1.setName("ROLE_ADMIN");
         userRoles.add(new UserRole(user1, role1));
         Address address1 = new Address();
         address1.setStreet1("123 S. St.");

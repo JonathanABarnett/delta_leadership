@@ -18,30 +18,18 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-//    @NotNull
-//    @NotEmpty(message = "Please enter your first name")
     private String firstName;
-//    @NotNull
-//    @NotEmpty(message = "Please enter your last name")
     private String lastName;
-//    @NotNull
-//    @NotEmpty(message = "Please enter your username")
     private String username;
-//    @NotNull
-//    @NotEmpty(message = "Please enter a password")
     private String password;
-//    @NotNull
-//    @NotEmpty(message = "Please enter your email")
     private String email;
-//    @NotNull
-//    @NotEmpty(message = "Please enter your phone number")
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "leadership_id")
     private Leadership leadership;
 
@@ -131,6 +119,14 @@ public class User implements UserDetails {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public Leadership getLeadership() {
+        return leadership;
+    }
+
+    public void setLeadership(Leadership leadership) {
+        this.leadership = leadership;
     }
 
     @Override
