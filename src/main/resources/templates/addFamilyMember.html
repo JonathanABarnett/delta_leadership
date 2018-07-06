@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragment::head"></head>
+
+<body>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row space">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Add Individuals</h3>
+            </div>
+
+            <div class="card-body">
+                <!--<div class="alert alert-danger" ></div>-->
+                <form th:action="@{/addFamilyMember}" th:method="post" th:object="${familyMember}">
+                    <input hidden="hidden" name="attendee.id" th:value="${attendee.id}" />
+                    <!--<div class="form-group" th:each="fm, itemStat : *{familyMembers}">-->
+                    <!--<label for="name">First Name</label>-->
+                    <!--<input type="text" class="form-control" id="name"-->
+                    <!--placeholder="First Name" th:field="*{familyMembers[__${itemStat.index}__].firstName}"/>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <label for="name">First Name</label>
+                        <input type="text" class="form-control" id="name"
+                               placeholder="First Name" th:field="${familyMember.firstName}" name="firstName"/>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Attendee</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
+</body>
+</html>

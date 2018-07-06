@@ -9,4 +9,6 @@ public interface AttendeeService {
     Attendee save(Attendee attendee);
 
     List<Attendee> findAll();
+
+    Attendee findById(int id);
 }

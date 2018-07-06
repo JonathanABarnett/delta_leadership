@@ -9,7 +9,8 @@ public class FamilyMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String firstName;
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+
+    @ManyToOne
     @JoinColumn(name = "attendee_id")
     private Attendee attendee;
 

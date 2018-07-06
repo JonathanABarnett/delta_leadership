@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
+<head th:replace="fragment::head"></head>
 
 <body>
-<h1>Directory</h1>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row space">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Add Attendee</h3>
+            </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col">-->
+                    <!--<a th:href="@{/directory}" class="btn btn-primary">Return to Directory</a>-->
+                <!--</div>-->
+                <!--<div class="col">-->
+                    <!--<a th:href="@{/addFamilyMember?id=} + ${attendee.id}" class="btn btn-warning">Add Family Members</a>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="alert alert-warning" th:if="${attendees.isEmpty()}">No Directory</div>
+            <div class="card-body" th:if="${!attendees.isEmpty()}">
+
+                <table class="table table-hover table-dark">
+                    <thead>
+                    <tr>
+                        <th hidden="hiden"></th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Add Family Members</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="attendee : ${attendees}">
+                        <td hidden="hidden" name="id" th:value="${attendee.id}"></td>
+                        <td th:text="${attendee.lastName}"></td>
+                        <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}" class="btn btn-warning">Add Family Members</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
 </body>
 </html>

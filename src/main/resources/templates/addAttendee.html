@@ -17,33 +17,31 @@
             </div>
 
             <div class="card-body">
-                <div class="alert alert-danger" th:if="${param.error != null}">Incorrect Username or Password</div>
+
+                <!--<div class="alert alert-danger" ></div>-->
                 <form th:action="@{/addAttendee}" th:method="post" th:object="${attendee}">
                     <div class="form-group">
                         <label for="lastName">Family Name</label>
-                        <input type="text" class="form-control" id="lastName"
+                        <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
                                placeholder="Enter last name of Family" required="required" name="lastName"/>
-
                     </div>
                     <div class="form-group">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="member" id="member" th:checked="checked"/>
-                            <label class="form-check-label" for="member">Member</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="member" id="non-member" />
-                            <label class="form-check-label" for="non-member">Non-Member</label>
+                            <input class="form-check-input" type="checkbox" name="member" id="member" th:field="*{member}"/>
+                            <label class="form-check-label" for="member">Is A Member</label>
                         </div>
                     </div>
-                    <div class="form-group" th:each="fm, itemStat : *{familyMembers}">
-                        <label for="name">First Name</label>
-                        <input type="text" class="form-control" id="name"
-                               placeholder="First Name" th:field="*{familyMembers[__${itemStat.index}__].firstName}"/>
+                    <div class="form-group">
+                        <label for="numOfChildren">Number of Children</label>
+                        <input type="number" class="form-control" id="numOfChildren" th:field="*{numOfChildren}"
+                               placeholder="Enter last name of Family" required="required" name="numOfChildren"/>
 
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Add Attendee</button>
+                    <button type="submit" class="btn btn-primary">Save Family</button>
+
                 </form>
+
 
             </div>
         </div>

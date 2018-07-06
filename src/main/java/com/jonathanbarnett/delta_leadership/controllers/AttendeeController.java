@@ -8,9 +8,7 @@ import com.jonathanbarnett.delta_leadership.service.AttendeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,18 +18,10 @@ public class AttendeeController {
     @Autowired
     private AttendeeService attendeeService;
 
-    @Autowired
-    private FamilyMemberRepository familyMemberRepository;
-
     @GetMapping(value = "/addAttendee")
     public String addAttendee(Model model) {
         model.addAttribute("title", "Add Attendee");
-        Attendee attendee = new Attendee();
-        model.addAttribute("attendee", attendee);
-
-        for (int i = 1; i <= 2; i++) {
-            attendee.addFamilyMember(new FamilyMember());
-        }
+        model.addAttribute("attendee", new Attendee());
         return "addAttendee";
     }
 
@@ -39,8 +29,17 @@ public class AttendeeController {
     public String processAddAttendee(Model model, @ModelAttribute Attendee attendee) {
         model.addAttribute("added", true);
         attendeeService.save(attendee);
-        familyMemberRepository.saveAll(attendee.getFamilyMembers());
-        model.addAttribute("attendees", attendeeService.findAll());
+        model.addAttribute("attendee", attendee);
         return "directory";
     }
+
+    @RequestMapping(value = "/detailsAttendee")
+    public String detailsAttendee(Model model, @RequestParam int id) {
+        Attendee attendee = attendeeService.findById(id);
+        model.addAttribute("title", attendee.getLastName() + " Details");
+        model.addAttribute("attendee", attendee);
+        model.addAttribute("familyMembersList", attendee.getFamilyMembers());
+        return "detailsAttendee";
+    }
+
 }

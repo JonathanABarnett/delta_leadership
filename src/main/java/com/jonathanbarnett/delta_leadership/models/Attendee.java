@@ -12,13 +12,18 @@ public class Attendee {
     private int id;
     private boolean member = true;
     private String lastName;
+    private int numOfChildren = 0;
     @OneToMany(mappedBy = "attendee", cascade = CascadeType.ALL)
-    private List<FamilyMember> familyMembers = new ArrayList<>();
+    private List<FamilyMember> familyMembers;
 
     public Attendee() {}
 
     public void addFamilyMember(FamilyMember familyMember) {
-        this.familyMembers.add(familyMember);
+        if (familyMembers == null) {
+            familyMembers = new ArrayList<>();
+        }
+        familyMembers.add(familyMember);
+        familyMember.setAttendee(this);
     }
 
     public int getId() {
@@ -43,6 +48,14 @@ public class Attendee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getNumOfChildren() {
+        return numOfChildren;
+    }
+
+    public void setNumOfChildren(int numOfChildren) {
+        this.numOfChildren = numOfChildren;
     }
 
     public List<FamilyMember> getFamilyMembers() {

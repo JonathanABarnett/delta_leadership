@@ -28,4 +28,9 @@ public class AttendeeServiceImpl implements AttendeeService {
     public List<Attendee> findAll() {
         return attendeeRepository.findAll();
     }
+
+    @Override
+    public Attendee findById(int id) {
+        return attendeeRepository.getOne(id);
+    }
 }
