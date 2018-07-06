@@ -30,6 +30,7 @@ public class AttendeeController {
         model.addAttribute("added", true);
         attendeeService.save(attendee);
         model.addAttribute("attendee", attendee);
+        model.addAttribute("attendees", attendeeService.findAll());
         return "directory";
     }
 

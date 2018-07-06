@@ -30,15 +30,14 @@
                 <table class="table table-hover table-dark">
                     <thead>
                     <tr>
-                        <th scope="col">Last Name</th>
                         <th scope="col">First Name</th>
-
+                        <th scope="col">Last Name</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="familyMember : ${familyMembersList}">
-                        <td th:text="${familyMember.attendee.lastName}"></td>
                         <td th:text="${familyMember.firstName}"></td>
+                        <td th:text="${familyMember.attendee.lastName}"></td>
                     </tr>
                     </tbody>
                 </table>
