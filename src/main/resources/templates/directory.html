@@ -28,7 +28,7 @@
             <div class="alert alert-warning" th:if="${attendees.isEmpty()}">No Members in Directory</div>
             <div class="card-body" th:if="${!attendees.isEmpty()}">
 
-                <table class="table table-hover table-dark">
+                <table class="table table-hover table-dark" id="directory">
                     <thead>
                     <tr>
                         <th hidden="hiden"></th>
@@ -39,7 +39,7 @@
                     <tbody>
                     <tr th:each="attendee : ${attendees}">
                         <td hidden="hidden" name="id" th:value="${attendee.id}"></td>
-                        <td th:text="${attendee.lastName}"></td>
+                        <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}" th:text="${attendee.lastName}"></a></td>
                         <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}" class="btn btn-warning">Add Family Members</a></td>
                     </tr>
                     </tbody>
@@ -53,6 +53,16 @@
 </div>
 
 <footer th:replace="fragment::footer"></footer>
+
+<script>
+    $(document).ready(function(){
+        $("#directory").DataTable({
+            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+            "ordering": false,
+            statesave: true
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -27,7 +27,7 @@
 
             <div class="card-body" th:if="${!familyMembersList.isEmpty()}">
 
-                <table class="table table-hover table-dark">
+                <table class="table table-hover table-dark" id="members">
                     <thead>
                     <tr>
                         <th scope="col">First Name</th>
@@ -50,6 +50,16 @@
 </div>
 
 <footer th:replace="fragment::footer"></footer>
+
+<script>
+    $(document).ready(function(){
+        $('#members').DataTable({
+            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+            "ordering": false,
+            statesave: true
+        });
+    });
+</script>
 
 </body>
 </html>
