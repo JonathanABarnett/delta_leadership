@@ -20,16 +20,32 @@
                 <!--<div class="alert alert-danger" ></div>-->
                 <form th:action="@{/addFamilyMember}" th:method="post" th:object="${familyMember}">
                     <input hidden="hidden" name="attendee.id" th:value="${attendee.id}" />
-                    <!--<div class="form-group" th:each="fm, itemStat : *{familyMembers}">-->
-                    <!--<label for="name">First Name</label>-->
-                    <!--<input type="text" class="form-control" id="name"-->
-                    <!--placeholder="First Name" th:field="*{familyMembers[__${itemStat.index}__].firstName}"/>-->
-                    <!--</div>-->
                     <div class="form-group">
                         <label for="name">First Name</label>
                         <input type="text" class="form-control" id="name"
                                placeholder="First Name" th:field="${familyMember.firstName}" name="firstName"/>
-
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                        <label for="male" class="col-form-label">Gender</label>
+                            <div class="form-check form-check-inline">
+                                <input th:field="${familyMember.gender}" value="Male" type="radio" name="gender" id="male"
+                                       class="form-check-input" th:checked="checked"/><label
+                                    class="form-check-label" for="male">
+                                Male </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input th:field="${familyMember.gender}" type="radio" name="gender" value="Female" id="female"
+                                       class="form-check-input"/><label class="form-check-label" for="female">
+                                Female</label>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="member" id="member" th:field="${familyMember.member}"/>
+                            <label class="form-check-label" for="member">Is A Member</label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Add Attendee</button>

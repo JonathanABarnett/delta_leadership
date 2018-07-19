@@ -10,9 +10,11 @@ public class Attendee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private boolean member = true;
+
     private String lastName;
     private int numOfChildren = 0;
+    private String addedBy;
+
     @OneToMany(mappedBy = "attendee", cascade = CascadeType.ALL)
     private List<FamilyMember> familyMembers;
 
@@ -34,14 +36,6 @@ public class Attendee {
         this.id = id;
     }
 
-    public boolean isMember() {
-        return member;
-    }
-
-    public void setMember(boolean member) {
-        this.member = member;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -56,6 +50,14 @@ public class Attendee {
 
     public void setNumOfChildren(int numOfChildren) {
         this.numOfChildren = numOfChildren;
+    }
+
+    public String getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
     }
 
     public List<FamilyMember> getFamilyMembers() {

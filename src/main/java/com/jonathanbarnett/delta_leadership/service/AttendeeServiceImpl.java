@@ -33,4 +33,5 @@ public class AttendeeServiceImpl implements AttendeeService {
     public Attendee findById(int id) {
         return attendeeRepository.getOne(id);
     }
+
 }

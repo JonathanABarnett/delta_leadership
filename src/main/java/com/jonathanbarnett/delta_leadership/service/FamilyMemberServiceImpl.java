@@ -22,4 +22,9 @@ public class FamilyMemberServiceImpl implements FamilyMemberService{
     public void save(FamilyMember familyMember) {
         familyMemberRepository.save(familyMember);
     }
+
+    @Override
+    public FamilyMember findById(int id) {
+        return familyMemberRepository.getOne(id);
+    }
 }

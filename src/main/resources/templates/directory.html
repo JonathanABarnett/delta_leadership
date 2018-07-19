@@ -16,31 +16,24 @@
                 <h3 class="text-center">Add Attendee</h3>
             </div>
 
-            <!--<div class="row">-->
-                <!--<div class="col">-->
-                    <!--<a th:href="@{/directory}" class="btn btn-primary">Return to Directory</a>-->
-                <!--</div>-->
-                <!--<div class="col">-->
-                    <!--<a th:href="@{/addFamilyMember?id=} + ${attendee.id}" class="btn btn-warning">Add Family Members</a>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <div class="alert alert-warning" th:if="${attendees.isEmpty()}">No Members in Directory</div>
             <div class="card-body" th:if="${!attendees.isEmpty()}">
 
-                <table class="table table-hover table-dark" id="directory">
+                <table class="table table-hover " id="directory">
                     <thead>
                     <tr>
                         <th hidden="hiden"></th>
                         <th scope="col">Last Name</th>
-                        <th scope="col">Add Family Members</th>
+                        <th scope="col">View/Add Family Members</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="attendee : ${attendees}">
                         <td hidden="hidden" name="id" th:value="${attendee.id}"></td>
-                        <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}" th:text="${attendee.lastName}"></a></td>
-                        <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}" class="btn btn-warning">Add Family Members</a></td>
+                        <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}" th:text="${attendee.lastName}"></a>
+                        </td>
+                        <td><a th:href="@{/detailsAttendee?id=} + ${attendee.id}">View/Add Family Members</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -55,9 +48,9 @@
 <footer th:replace="fragment::footer"></footer>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#directory").DataTable({
-            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+
             "ordering": false,
             statesave: true
         });

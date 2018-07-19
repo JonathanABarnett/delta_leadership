@@ -1,16 +1,13 @@
 package com.jonathanbarnett.delta_leadership.controllers;
 
 import com.jonathanbarnett.delta_leadership.models.Attendee;
-import com.jonathanbarnett.delta_leadership.models.FamilyMember;
-import com.jonathanbarnett.delta_leadership.models.FamilyMemberCreation;
-import com.jonathanbarnett.delta_leadership.repository.FamilyMemberRepository;
 import com.jonathanbarnett.delta_leadership.service.AttendeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 public class AttendeeController {
@@ -20,14 +17,17 @@ public class AttendeeController {
 
     @GetMapping(value = "/addAttendee")
     public String addAttendee(Model model) {
+
         model.addAttribute("title", "Add Attendee");
         model.addAttribute("attendee", new Attendee());
         return "addAttendee";
     }
 
     @PostMapping(value = "/addAttendee")
-    public String processAddAttendee(Model model, @ModelAttribute Attendee attendee) {
+    public String processAddAttendee(Model model, @ModelAttribute Attendee attendee, Principal principal) {
         model.addAttribute("added", true);
+        String user = principal.getName();
+        attendee.setAddedBy(user);
         attendeeService.save(attendee);
         model.addAttribute("attendee", attendee);
         model.addAttribute("attendees", attendeeService.findAll());

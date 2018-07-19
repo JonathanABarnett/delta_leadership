@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.websocket.server.PathParam;
+import java.security.Principal;
 
 @Controller
 public class FamilyMemberController {
@@ -35,8 +36,10 @@ public class FamilyMemberController {
     }
 
     @PostMapping(value = "/addFamilyMember")
-    public String processAddAttendee(Model model, @ModelAttribute FamilyMember familyMember) {
+    public String processAddAttendee(Model model, @ModelAttribute FamilyMember familyMember, Principal principal) {
         model.addAttribute("added", true);
+        String user = principal.getName();
+        familyMember.setAddedBy(user);
         Attendee attendee = familyMember.getAttendee();
         System.out.println(attendee.getLastName() + " " + attendee.getId());
         familyMemberService.save(familyMember);
@@ -46,23 +49,11 @@ public class FamilyMemberController {
         return "redirect:/detailsAttendee?id=" + attendee.getId();
     }
 
-//    @GetMapping(value = "/addFamilyMember")
-//    public String addFamilyMember(Model model, @RequestParam("id") int id) {
-//        model.addAttribute("title", "Add Family Member");
-//        Attendee attendee = attendeeService.findById(id);
-//        model.addAttribute("attendee", attendee);
-//
-//        return "addFamilyMember";
-//    }
-//
-//    @PostMapping(value = "/addFamilyMember")
-//    public String processAddFamilyMember(Model model, @ModelAttribute("attendee") Attendee attendee,
-//                                         @ModelAttribute("familyMember") FamilyMember familyMember) {
-//        model.addAttribute("added", true);
-//        attendee.addFamilyMember(familyMember);
-//        attendeeService.save(attendee);
-//        familyMemberService.saveAll(attendee.getFamilyMembers());
-//        model.addAttribute("attendees", attendeeService.findAll());
-//        return "directory";
-//    }
+    @GetMapping(value = "/detailsFamilyMember")
+    public String familyMemberDetails(Model model, @RequestParam("id") int id) {
+        model.addAttribute("title", "View Info");
+        model.addAttribute("familyMember", familyMemberService.findById(id));
+
+        return "detailsFamilyMember";
+    }
 }
