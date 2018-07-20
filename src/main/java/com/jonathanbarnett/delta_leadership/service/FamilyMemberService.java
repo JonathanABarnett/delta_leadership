@@ -8,7 +8,8 @@ public interface FamilyMemberService {
 
     void saveAll(List<FamilyMember> familyMembers);
 
-    void save(FamilyMember familyMember);
+    FamilyMember save(FamilyMember familyMember);
 
     FamilyMember findById(int id);
+
 }

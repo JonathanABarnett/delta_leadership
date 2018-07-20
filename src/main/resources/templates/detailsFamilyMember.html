@@ -13,7 +13,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center" th:text="${familyMember.firstName} + ' ' + ${familyMember.lastName} + ' Info'"></h3>
+                <h3 class="text-center" th:text="${familyMember.firstName} + ' ' + ${attendee.lastName} + ' Info'"></h3>
             </div>
 
             <div class="row">
@@ -30,9 +30,11 @@
             <div class="card-body">
 
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" th:text="'Name: ' + ${familyMember.firstName} + ' ' + ${familyMember.lastName}"></li>
-                    <li class="list-group-item" th:text="'Member: ' +${familyMember.member} ? 'Yes' : 'No'"></li>
+                    <li class="list-group-item" th:text="'Name: ' + ${familyMember.firstName} + ' ' + ${attendee.lastName}"></li>
+                    <li class="list-group-item" th:text="${familyMember.member} ? 'Member: Yes' : 'Member: No'"></li>
                     <li class="list-group-item" th:text="'Gender: ' + ${familyMember.gender}"></li>
+                    <li class="list-group-item" th:if="${spouse != null}"><a th:href="@{/detailsFamilyMember?id=} + ${spouse.id}"
+                                                                             th:text="'Spouse: ' + ${spouse.firstName}"></a></li>
                 </ul>
 
             </div>

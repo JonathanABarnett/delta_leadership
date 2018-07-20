@@ -13,13 +13,14 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Add Individuals</h3>
+                <h3 class="text-center">Update Individual</h3>
             </div>
 
             <div class="card-body">
-
-                <form th:action="@{/addFamilyMember}" th:method="post" th:object="${familyMember}">
+                <!--<div class="alert alert-danger" ></div>-->
+                <form th:action="@{/updateFamilyMember}" th:method="post" th:object="${familyMember}">
                     <input hidden="hidden" name="attendee.id" th:value="${attendee.id}"/>
+                    <input hidden="hidden" name="id" th:value="${familyMember.id}"/>
                     <div class="form-group">
                         <label for="name">First Name</label>
                         <input type="text" class="form-control" id="name"
@@ -32,7 +33,7 @@
                         <div class="form-check">
                             <input th:field="${familyMember.gender}" value="Male" type="radio" name="gender"
                                    id="male"
-                                   class="form-check-input" checked/><label
+                                   class="form-check-input" /><label
                                 class="form-check-label" for="male">
                             Male </label>
                         </div>
@@ -52,7 +53,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Add Attendee</button>
+                    <button type="submit" class="btn btn-primary">Update Attendee</button>
+                    <a class="btn btn-warning" th:href="@{/directory}">Cancel</a>
                 </form>
 
             </div>

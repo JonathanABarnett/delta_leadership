@@ -52,8 +52,45 @@ public class FamilyMemberController {
     @GetMapping(value = "/detailsFamilyMember")
     public String familyMemberDetails(Model model, @RequestParam("id") int id) {
         model.addAttribute("title", "View Info");
-        model.addAttribute("familyMember", familyMemberService.findById(id));
+        FamilyMember familyMember = familyMemberService.findById(id);
+        model.addAttribute("familyMember", familyMember);
+        Attendee attendee = familyMember.getAttendee();
+        model.addAttribute("attendee", attendee);
+
+        FamilyMember spouse = null;
+        if (attendee.getFamilyMembers().size() > 1) {
+            for (FamilyMember fm : attendee.getFamilyMembers()) {
+                if (fm.getId() != familyMember.getId()) {
+                    spouse = fm;
+                }
+            }
+            model.addAttribute("spouse", spouse);
+        }
+
+
 
         return "detailsFamilyMember";
+    }
+
+    @GetMapping(value = "/updateFamilyMember")
+    public String updateFamilyMember(Model model, @RequestParam("id") int id) {
+        FamilyMember familyMember = familyMemberService.findById(id);
+        Attendee attendee = familyMember.getAttendee();
+        model.addAttribute("title", "Update " + familyMember.getFirstName());
+        model.addAttribute("familyMember", familyMember);
+        model.addAttribute("attendee", attendee);
+        return "updateFamilyMember";
+    }
+
+    @PostMapping(value = "/updateFamilyMember")
+    public String processUpdateFamilyMember(@ModelAttribute("familyMember") FamilyMember familyMember, Model model, Principal principal) {
+        model.addAttribute("added", true);
+        String user = principal.getName();
+        familyMember.setAddedBy(user);
+        Attendee attendee = familyMember.getAttendee();
+        System.out.println(attendee.getLastName() + " " + attendee.getId());
+        familyMemberService.save(familyMember);
+        model.addAttribute("attendees", attendeeService.findAll());
+        return "redirect:/detailsAttendee?id=" + attendee.getId();
     }
 }

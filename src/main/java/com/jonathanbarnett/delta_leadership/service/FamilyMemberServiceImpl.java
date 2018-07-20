@@ -19,12 +19,16 @@ public class FamilyMemberServiceImpl implements FamilyMemberService{
     }
 
     @Override
-    public void save(FamilyMember familyMember) {
-        familyMemberRepository.save(familyMember);
+    public FamilyMember save(FamilyMember familyMember) {
+        return familyMemberRepository.save(familyMember);
     }
 
     @Override
     public FamilyMember findById(int id) {
         return familyMemberRepository.getOne(id);
     }
+
+
+
+
 }

@@ -41,7 +41,7 @@
                     <tr th:each="familyMember : ${familyMembersList}">
                         <td hidden="hidden" name="id" th:value="${familyMember.id}"></td>
                         <td><a th:href="@{/detailsFamilyMember?id=} + ${familyMember.id}" th:text="${familyMember.firstName}"></a></td>
-                        <td><a th:href="@{/detailsFamilyMember?id=} + ${familyMember.id}" th:text="${familyMember.lastName}"></a></td>
+                        <td><a th:href="@{/detailsFamilyMember?id=} + ${familyMember.id}" th:text="${attendee.lastName}"></a></td>
                         <td th:text="${familyMember.member} ? 'Yes' : 'No'"></td>
                     </tr>
                     </tbody>

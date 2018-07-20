@@ -33,7 +33,8 @@
 
                     <!-- Login Tab -->
                     <div class="tab-pane show " id="login" role="tabpanel" aria-labelledby="login-tab" th:classappend="${classActiveLogin} ? 'show active'">
-                        <h3>Login</h3>
+                        <h2>Login</h2>
+                        <hr/>
                         <div class="alert alert-danger" th:if="${param.error != null}">Incorrect Username or Password</div>
                         <form th:action="@{/login}" method="post">
                             <div class="form-group">
@@ -53,7 +54,7 @@
 
                     <!-- Create Tab -->
                     <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab" th:classappend="${classActiveCreate} ? ' show active'">
-                        <h3>Register</h3>
+                        <h2>Register</h2>
                         <div class="alert alert-danger" th:if="${emailExists}">An account with this email already exists.</div>
                         <div class="alert alert-danger" th:if="${usernameExists}">An account with this username already exists.</div>
                         <div class="alert alert-success" th:if="${emailSent}">An email has been sent to the address you registered.</div>
@@ -83,7 +84,8 @@
 
                     <!-- Forgot Tab -->
                     <div class="tab-pane " id="forgot" role="tabpanel" aria-labelledby="forgot-tab" th:classappend="${classActiveForgot} ? ' show active'">
-                        <h3>Forgot Password</h3>
+                        <h2>Forgot Password</h2>
+                        <hr/>
                         <div class="alert alert-success" th:if="${emailSent}">An email has been sent to the address you registered. Please follow the link to reset your password.</div>
                         <div class="alert alert-danger" th:if="${emailDoesNotExist}">There is no record of this email. Please create an account.</div>
                         <form th:action="@{/forgotPassword}" method="post">

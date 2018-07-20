@@ -31,6 +31,7 @@ public class AttendeeController {
         attendeeService.save(attendee);
         model.addAttribute("attendee", attendee);
         model.addAttribute("attendees", attendeeService.findAll());
+        model.addAttribute("title", "Directory");
         return "directory";
     }
 
@@ -41,6 +42,24 @@ public class AttendeeController {
         model.addAttribute("attendee", attendee);
         model.addAttribute("familyMembersList", attendee.getFamilyMembers());
         return "detailsAttendee";
+    }
+
+    @GetMapping(value = "/updateAttendee")
+    public String updateAttendee(Model model, @RequestParam("id") int id) {
+        Attendee attendee = attendeeService.findById(id);
+        model.addAttribute("title", "Update " + attendee.getLastName() + "s");
+        model.addAttribute("attendee", attendee);
+        return "updateAttendee";
+    }
+
+    @PostMapping(value = "/updateAttendee")
+    public String processUpdateAttendee(@ModelAttribute Attendee attendee, Model model) {
+        attendeeService.save(attendee);
+        model.addAttribute("updated", true);
+        model.addAttribute("attendee", attendee);
+        model.addAttribute("attendees", attendeeService.findAll());
+        model.addAttribute("title", "Directory");
+        return "directory";
     }
 
 }
