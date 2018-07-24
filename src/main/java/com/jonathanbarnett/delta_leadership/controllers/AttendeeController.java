@@ -53,7 +53,9 @@ public class AttendeeController {
     }
 
     @PostMapping(value = "/updateAttendee")
-    public String processUpdateAttendee(@ModelAttribute Attendee attendee, Model model) {
+    public String processUpdateAttendee(@ModelAttribute Attendee attendee, Model model, Principal principal) {
+        String user = principal.getName();
+        attendee.setAddedBy(user);
         attendeeService.save(attendee);
         model.addAttribute("updated", true);
         model.addAttribute("attendee", attendee);

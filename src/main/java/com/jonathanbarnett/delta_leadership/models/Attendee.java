@@ -10,7 +10,6 @@ public class Attendee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String lastName;
     private int numOfChildren = 0;
     private String addedBy;

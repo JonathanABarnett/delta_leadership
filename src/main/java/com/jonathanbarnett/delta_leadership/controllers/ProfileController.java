@@ -170,6 +170,12 @@ public class ProfileController {
         model.addAttribute("updateUserInfoSuccess", true);
         model.addAttribute("user", currentUser);
         model.addAttribute("classActiveEdit", true);
+        List<Leadership> leadershipRoles = new ArrayList<>();
+        leadershipRoles = leadershipService.findAll();
+        model.addAttribute("leadershipRoles", leadershipRoles);
+        List<String> stateList = USStates.listOfUSStateCode;
+        Collections.sort(stateList);
+        model.addAttribute("stateList", stateList);
 
         UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
 

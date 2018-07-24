@@ -1,6 +1,7 @@
 package com.jonathanbarnett.delta_leadership.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class FamilyMember {
@@ -12,9 +13,18 @@ public class FamilyMember {
     private boolean member = true;
     private String gender;
     private String addedBy;
+
     @ManyToOne
     @JoinColumn(name = "attendee_id")
     private Attendee attendee;
+
+    @ManyToMany
+    @JoinTable(
+            name = "task_family_member",
+            joinColumns =  @JoinColumn(name = "family_member_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    private List<Task> tasks;
 
     public FamilyMember() {}
 
@@ -64,5 +74,13 @@ public class FamilyMember {
 
     public void setAttendee(Attendee attendee) {
         this.attendee = attendee;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

@@ -14,6 +14,8 @@ public class Leadership {
     @OneToMany(mappedBy = "leadership", cascade = CascadeType.ALL)
     private List<User> userList;
 
+    public Leadership() {}
+
     public int getLeadershipId() {
         return leadershipId;
     }

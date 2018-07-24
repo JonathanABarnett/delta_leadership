@@ -38,6 +38,7 @@
                         <hr/>
                         <form th:action="@{/updateProfile}" method="post">
                             <input type="hidden" name="id" th:value="${user.id}"/>
+                            <input type="hidden" name="address.id" th:value="${user.address}" />
                             <div class="alert alert-success" th:if="${updateUserInfoSuccess}">User info updated.
                             </div>
                             <div class="alert alert-danger" th:if="${incorrectPassword}">Current password was entered incorrectly.
@@ -127,9 +128,8 @@
                                     <div class="col-xs-12 col">
                                         <label for="state">State</label>
                                         <select class="form-control"
-                                                th:name="state" id="state"
+                                                name="state" id="state"
                                                 th:field="${user.address.state}"
-
                                                 required="required">
                                             <option th:each="state : ${stateList}" th:text="${state}"
                                                     th:value="${state}"
