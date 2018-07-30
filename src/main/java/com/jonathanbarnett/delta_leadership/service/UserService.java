@@ -4,6 +4,7 @@ import com.jonathanbarnett.delta_leadership.models.User;
 import com.jonathanbarnett.delta_leadership.security.PasswordResetToken;
 import com.jonathanbarnett.delta_leadership.security.UserRole;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -21,4 +22,6 @@ public interface UserService {
     User createUser(User user, Set<UserRole>userRoles);
 
     User save(User user);
+
+    List<User> findAll();
 }

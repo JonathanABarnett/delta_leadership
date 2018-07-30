@@ -1,5 +1,7 @@
 package com.jonathanbarnett.delta_leadership.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +13,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String addedBy;
+    private String description;
     private Date addedOn;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date completeBy;
     private Date completedOn;
 
@@ -25,11 +29,11 @@ public class Task {
 
     @ManyToMany
     @JoinTable(
-            name = "task_family_member",
+            name = "task_attendee",
             joinColumns =  @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "family_member_id")
+            inverseJoinColumns = @JoinColumn(name = "attendee_id")
     )
-    private List<FamilyMember> familyMembers;
+    private List<Attendee> attendees;
 
     @OneToOne
     @JoinColumn(name = "priority_id")
@@ -59,6 +63,14 @@ public class Task {
 
     public void setAddedBy(String addedBy) {
         this.addedBy = addedBy;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getAddedOn() {
@@ -93,12 +105,12 @@ public class Task {
         this.taskOwners = taskOwners;
     }
 
-    public List<FamilyMember> getFamilyMembers() {
-        return familyMembers;
+    public List<Attendee> getAttendees() {
+        return attendees;
     }
 
-    public void setFamilyMembers(List<FamilyMember> familyMembers) {
-        this.familyMembers = familyMembers;
+    public void setAttendees(List<Attendee> attendees) {
+        this.attendees = attendees;
     }
 
     public Priority getPriority() {
