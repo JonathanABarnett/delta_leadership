@@ -43,7 +43,7 @@
                             </td>
                             <td th:text="${#dates.format(task.addedOn, 'MMM-dd-yyyy')}">
                             </td>
-                            <td th:if="${task.complete} ? ${#dates.format(task.completedOn, 'MMM-dd-yyyy')} : 'Incomplete'"></td>
+                            <td th:text="${task.complete} ? ${#dates.format(task.completedOn, 'MMM-dd-yyyy')} : 'Incomplete'"></td>
                         </tr>
 
                         <tr th:id="'moreinfo' + ${task.id}" class="collapse"

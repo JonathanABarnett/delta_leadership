@@ -14,4 +14,6 @@ public interface TaskService {
     List<Task> findByCompleteIsFalse();
 
     List<Task> findAll();
+
+    Task findById(int id);
 }

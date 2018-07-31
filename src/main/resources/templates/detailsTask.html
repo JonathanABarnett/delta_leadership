@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragment::head"></head>
+
+<body>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row space">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Task/Need</h3>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <a th:href="@{/listOfTasks}" class="btn btn-warning btn-block">
+                        <i class="fas fa-arrow-left"></i> Return to All Needs/Tasks</a>
+                </div>
+                <div class="col">
+                    <a th:href="@{/updateTask?id=} + ${task.id}" class="btn btn-primary btn-block">
+                        <i class="fas fa-edit"></i> Edit Info</a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <th:block th:if="${!task.attendees.isEmpty()}">
+                    <h5>Families</h5>
+                    <ul class="list-group list-group-flush" th:each="fam : ${task.attendees}">
+                        <li class="list-group-item" th:text="${fam.lastName}"></li>
+                    </ul>
+                </th:block>
+                <h5>Owners</h5>
+                <ul class="list-group list-group-flush" th:each="owner : ${task.taskOwners}">
+                    <li class="list-group-item" th:text="${owner.firstName} + ' ' + ${owner.lastName}"></li>
+                </ul>
+                <h5>Priority</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="${task.priority.level}"></li>
+                </ul>
+                <h5>Priority</h5>
+                <ul class="list-group list-group-flush" th:each="type : ${task.taskTypes}">
+                    <li class="list-group-item" th:text="${type.name}"></li>
+                </ul>
+                <h5>Description</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="${task.description}"></li>
+                </ul>
+                <h5>Added On</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="${#dates.format(task.addedOn, 'MMM-dd-yyyy')}"></li>
+                </ul>
+                <th:block th:if="${task.complete}">
+                    <h5>Completed On</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="${#dates.format(task.completedOn, 'MMM-dd-yyyy')}"></li>
+                    </ul>
+                </th:block>
+                <th:block th:if="${!task.complete}">
+                    <h5>Complete By</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="${#dates.format(task.completeBy, 'MMM-dd-yyyy')}"></li>
+                    </ul>
+                </th:block>
+            </div>
+        </div>
+
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
+
+</body>
+</html>

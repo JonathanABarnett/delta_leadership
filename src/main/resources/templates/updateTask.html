@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragment::head"></head>
+
+<body>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row space">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Add Task/Need</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form th:action="@{/addTask}" th:method="post" th:object="${task}">
+                    <input hidden="hidden" name="task.id" th:value="${task.id} "/>
+                    <div class="form-group">
+                        <label for="taskOwners">Owner</label>
+                        <select class="form-control"
+                                name="taskOwners" id="taskOwners" multiple="multiple">
+                            <option th:each="user : ${users}"
+                                    th:text="${user.firstName} + ' ' + ${user.lastName}"
+                                    th:value="${user.id}"
+                                    th:field="*{taskOwners}"></option>
+                            <!-- th:selected="(${user.leadership.name}==${role.name})" -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attendees">Family</label>
+                        <select class="form-control"
+                                name="attendees" id="attendees" multiple="multiple">
+                            <option th:each="attendee : ${attendeeList}"
+                                    th:text="${attendee.lastName}"
+                                    th:value="${attendee.id}"
+                                    th:field="*{attendees}">
+                            </option>
+                            <!-- th:selected="(${user.leadership.name}==${role.name})" -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="completeBy">
+                            Date to Complete By
+                        </label>
+                        <input type="date" class="form-control" id="completeBy" name="completeBy" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">
+                            Description of Task
+                        </label>
+                        <textarea class="form-control" id="description" rows="5" placeholder="Enter Description of Need or Task"
+                                  name="description" th:value="${task.description}"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select class="form-control"
+                                name="priority" id="priority"
+                                th:field="${task.priority}"
+                                required="required">
+                            <option th:each="priority : ${priorities}" th:text="${priority.level}"
+                                    th:value="${priority.id}"
+                                    th:selected="(${priority.level}==${priority.level})"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskType">Type of Task/Need</label>
+                        <select class="form-control"
+                                name="taskTypes" id="taskType" multiple="multiple">
+                            <option th:each="tasktype : ${taskType}"
+                                    th:text="${tasktype.name}"
+                                    th:value="${tasktype.id}"
+                                    th:field="*{taskTypes}" >
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Update Task</button>
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
+</body>
+</html>

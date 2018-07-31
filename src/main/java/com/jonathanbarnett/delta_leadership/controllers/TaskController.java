@@ -8,10 +8,7 @@ import com.jonathanbarnett.delta_leadership.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -75,8 +72,16 @@ public class TaskController {
         model.addAttribute("attendees", attendeeService.findAll());
         model.addAttribute("tasks", taskService.findAll());
 
-
         return "listOfTasks";
 
     }
+
+    @GetMapping(value = "/detailsTask")
+    public String detailsTask(Model model, @RequestParam int id) {
+        Task task = taskService.findById(id);
+        model.addAttribute("title", "Details");
+        model.addAttribute("task", task);
+        return "detailsTask";
+    }
+
 }
