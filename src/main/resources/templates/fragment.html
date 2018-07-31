@@ -60,7 +60,7 @@
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Attendees
+                    Directory
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                     <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/directory}">
@@ -70,8 +70,18 @@
                         <i class="fas fa-plus-circle"></i> Add Attendee</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link"sec:authorize="isAuthenticated()" th:href="@{/directory}">Member Directory</a>
+            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Tasks/Needs
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/listOfTasks}">
+                        <i class="fas fa-address-book"></i> Needs/Tasks</a>
+                    <div sec:authorize="isAuthenticated()" class="dropdown-divider"></div>
+                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/addTask}">
+                        <i class="fas fa-plus-circle"></i> Add Need/Task</a>
+                </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" sec:authorize="isAuthenticated()">

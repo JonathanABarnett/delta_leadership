@@ -13,7 +13,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Add Attendee</h3>
+                <h3 class="text-center">Directory</h3>
             </div>
 
             <div class="alert alert-warning" th:if="${attendees.isEmpty()}">No Members in Directory <a th:href="@{/addAttendee}">Add Families</a> </div>
@@ -53,7 +53,7 @@
     $(document).ready(function () {
         $("#directory").DataTable({
 
-            "ordering": false,
+            "ordering": true,
             statesave: true
         });
     });

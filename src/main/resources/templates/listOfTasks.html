@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragment::head"></head>
+
+<body>
+
+<nav th:replace="fragment::nav"></nav>
+
+<!-- Card Tabs -->
+<div class="row space">
+    <div class="col"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">List of Tasks</h3>
+            </div>
+
+            <div class="alert alert-warning" th:if="${tasks.isEmpty()}">No Tasks/Needs Added <a th:href="@{/addTask}">Add
+                Task/Need</a></div>
+
+            <div class="card-body" th:if="${!tasks.isEmpty()}">
+
+                <table class="table table-hover " id="tasks">
+                    <thead>
+                    <tr>
+                        <!--<th hidden="hiden"></th>-->
+                        <th scope="col">More Info</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Completed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="task : ${tasks}" id="accordion">
+                        <tr th:id="'heading' + ${task.id}" th:value="${task.id}">
+                            <!--<td hidden="hidden" name="id" th:value="${task.id}"></td>-->
+                            <td data-toggle="collapse" th:data-target="'#moreinfo' + ${task.id}" aria-expanded="true"
+                                th:aria-controls="'moreinfo' + ${task.id}">
+                                <i class="fas fa-plus-circle"></i>
+                            </td>
+                            <td><a th:href="@{/detailsTask?id=} + ${task.id}" th:text="${task.priority.level}"></a>
+                            </td>
+                            <td th:text="${#dates.format(task.addedOn, 'MMM-dd-yyyy')}">
+                            </td>
+                            <td th:if="${task.complete} ? ${#dates.format(task.completedOn, 'MMM-dd-yyyy')} : 'Incomplete'"></td>
+                        </tr>
+
+                        <tr th:id="'moreinfo' + ${task.id}" class="collapse"
+                            th:aria-labelledby="'heading' + ${task.id}" data-parent="#accordion">
+                            <td>
+                                <div>
+                                    <h5>Families</h5>
+                                </div>
+                                <div th:each="fam : ${task.attendees}">
+                                    <a th:href="@{/detailsAttendee?id=} + ${fam.id}" th:text="${fam.lastName}"></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <h5>Owners</h5>
+                                </div>
+                                <div th:each="owner : ${task.taskOwners}"
+                                     th:text="${owner.firstName} + ' ' + ${owner.lastName}"></div>
+                            </td>
+                        </tr>
+
+                    </th:block>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+
+<footer th:replace="fragment::footer"></footer>
+
+<script>
+    $(document).ready(function () {
+        $("#tasks").DataTable({
+
+            "ordering": true,
+            statesave: true
+        });
+    });
+</script>
+
+</body>
+</html>

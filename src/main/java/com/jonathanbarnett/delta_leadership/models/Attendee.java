@@ -17,6 +17,15 @@ public class Attendee {
     @OneToMany(mappedBy = "attendee", cascade = CascadeType.ALL)
     private List<FamilyMember> familyMembers;
 
+    @ManyToMany
+    @JoinTable(
+            name = "task_attendee",
+            joinColumns =  @JoinColumn(name = "attendee_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    private List<Task> tasks;
+
+
     public Attendee() {}
 
     public void addFamilyMember(FamilyMember familyMember) {

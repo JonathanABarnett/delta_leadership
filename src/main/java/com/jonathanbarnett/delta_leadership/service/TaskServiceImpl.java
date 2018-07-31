@@ -5,6 +5,8 @@ import com.jonathanbarnett.delta_leadership.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskServiceImpl implements TaskService {
 
@@ -14,5 +16,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task save(Task task) {
         return taskRepository.save(task);
+    }
+
+    @Override
+    public List<Task> findByCompleteIsTrue() {
+        return taskRepository.findByCompleteIsTrue();
+    }
+
+    @Override
+    public List<Task> findByCompleteIsFalse() {
+        return taskRepository.findByCompleteIsFalse();
+    }
+
+    @Override
+    public List<Task> findAll() {
+        return taskRepository.findAll();
     }
 }

@@ -19,24 +19,28 @@
             <div class="card-body">
 
                 <form th:action="@{/addTask}" th:method="post" th:object="${task}">
+                    <input hidden="hidden" name="task.id" th:value="${task.id} "/>
                     <div class="form-group">
-                        <label for="leadership">Owner</label>
+                        <label for="taskOwners">Owner</label>
                         <select class="form-control"
-                                name="leadership" id="leadership" multiple="multiple">
+                                name="taskOwners" id="taskOwners" multiple="multiple">
                             <option th:each="user : ${users}"
                                     th:text="${user.firstName} + ' ' + ${user.lastName}"
-                                    th:value="${task.taskOwners}"></option>
+                                    th:value="${user.id}"
+                            th:field="*{taskOwners}"></option>
                             <!-- th:selected="(${user.leadership.name}==${role.name})" -->
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="family">Family</label>
+                        <label for="attendees">Family</label>
                         <select class="form-control"
-                                name="family" id="family" multiple="multiple">
-                            <option th:each="attendee : ${attendees}"
+                                name="attendees" id="attendees" multiple="multiple">
+                            <option th:each="attendee : ${attendeeList}"
                                     th:text="${attendee.lastName}"
-                                    th:value="${task.attendees}"></option>
+                                    th:value="${attendee.id}"
+                                    th:field="*{attendees}">
+                            </option>
                             <!-- th:selected="(${user.leadership.name}==${role.name})" -->
                         </select>
                     </div>
@@ -70,10 +74,12 @@
                     <div class="form-group">
                         <label for="taskType">Type of Task/Need</label>
                         <select class="form-control"
-                                name="taskType" id="taskType" multiple="multiple">
+                                name="taskTypes" id="taskType" multiple="multiple">
                             <option th:each="tasktype : ${taskType}"
                                     th:text="${tasktype.name}"
-                                    th:value="${task.taskTypes}"></option>
+                                    th:value="${tasktype.id}"
+                                    th:field="*{taskTypes}" >
+                            </option>
                             <!-- th:selected="(${user.leadership.name}==${role.name})" -->
                         </select>
                     </div>

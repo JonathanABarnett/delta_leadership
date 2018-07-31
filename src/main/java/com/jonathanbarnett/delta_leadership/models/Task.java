@@ -18,6 +18,7 @@ public class Task {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date completeBy;
     private Date completedOn;
+    private boolean complete = false;
 
     @ManyToMany
     @JoinTable(
@@ -95,6 +96,14 @@ public class Task {
 
     public void setCompletedOn(Date completedOn) {
         this.completedOn = completedOn;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 
     public List<User> getTaskOwners() {
